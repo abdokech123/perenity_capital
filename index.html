@@ -742,27 +742,13 @@ footer {
   display: flex; justify-content: space-between; align-items: center;
 }
 .foot-logo {
-  display: flex; align-items: center; gap: 16px;
+  display: flex; align-items: center;
+  background: var(--ivory);
+  padding: 14px 22px;
+  border-radius: 2px;
 }
-.foot-monogram {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 36px; font-weight: 300; letter-spacing: -0.02em;
-  color: var(--on-dark); line-height: 1;
-  padding-right: 16px;
-  border-right: 1px solid var(--bd-dark);
-}
-.foot-wordmark {
-  display: flex; flex-direction: column; gap: 3px;
-}
-.foot-wordmark-name {
-  font-family: 'Inter', sans-serif;
-  font-size: 10px; font-weight: 500; letter-spacing: 0.30em;
-  text-transform: uppercase; color: var(--on-dark);
-}
-.foot-wordmark-sub {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 11px; font-style: italic; letter-spacing: 0.14em;
-  color: var(--gold);
+.foot-logo-img {
+  height: 38px; width: auto; display: block;
 }
 .foot-links { display: flex; gap: 32px; }
 .foot-links a {
@@ -1343,11 +1329,7 @@ footer {
 <!-- FOOTER -->
 <footer>
   <div class="foot-logo">
-    <span class="foot-monogram">PC</span>
-    <div class="foot-wordmark">
-      <span class="foot-wordmark-name">Perenity Capital</span>
-      <em class="foot-wordmark-sub">Advisory Firm</em>
-    </div>
+    <img src="logo-horizontal.png" class="foot-logo-img" alt="Perenity Capital — Advisory & Investment Partner">
   </div>
   <div class="foot-links">
     <a href="#about" data-i18n="nav-about">À propos</a>
