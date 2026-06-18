@@ -874,9 +874,83 @@ footer {
   .ref-feat-badge { font-size: 8.5px; }
 }
 
+/* ─── ACCESS GATE (TEMPORAIRE — à supprimer une fois le design stabilisé) ─── */
+body.gate-locked { overflow: hidden; }
+#access-gate {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--ivory);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+.gate-box { width: 100%; max-width: 380px; text-align: center; }
+.gate-logo { height: 56px; width: auto; margin: 0 auto 40px; display: block; }
+.gate-label {
+  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--taupe-dim); margin-bottom: 24px;
+}
+.gate-form { display: flex; flex-direction: column; gap: 14px; }
+.gate-input {
+  font-family: 'Inter', sans-serif; font-size: 14px; letter-spacing: 0.05em;
+  padding: 14px 18px; border: 1px solid var(--bd-light); background: var(--ivory-2);
+  color: var(--sand); text-align: center; outline: none; transition: border-color 0.25s;
+}
+.gate-input:focus { border-color: var(--gold); }
+.gate-submit {
+  font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 14px 24px; background: var(--sand); color: var(--ivory); border: none; cursor: pointer;
+  transition: background 0.3s;
+}
+.gate-submit:hover { background: var(--gold); color: var(--dark); }
+.gate-error {
+  font-size: 11px; letter-spacing: 0.04em; color: #B5544A;
+  opacity: 0; height: 0; transition: opacity 0.25s; overflow: hidden;
+}
+.gate-error.show { opacity: 1; height: auto; }
+
 </style>
 </head>
 <body>
+
+<!-- ACCESS GATE (TEMPORAIRE — à supprimer une fois le design stabilisé, voir bloc CSS et JS associés) -->
+<div id="access-gate">
+  <div class="gate-box">
+    <img src="logo-nav.png" class="gate-logo" alt="Perenity Capital">
+    <p class="gate-label">Accès réservé — Aperçu privé</p>
+    <form class="gate-form" id="gate-form">
+      <input type="password" class="gate-input" id="gate-password" placeholder="Mot de passe" autocomplete="off">
+      <button type="submit" class="gate-submit">Accéder au site</button>
+      <p class="gate-error" id="gate-error">Mot de passe incorrect</p>
+    </form>
+  </div>
+</div>
+<script>
+(function(){
+  var GATE_PASSWORD = 'Perenity2026'; // ⚠️ changer ici si besoin
+  var gate = document.getElementById('access-gate');
+  var form = document.getElementById('gate-form');
+  var input = document.getElementById('gate-password');
+  var error = document.getElementById('gate-error');
+
+  if (sessionStorage.getItem('perenity-gate-ok') === '1') {
+    gate.style.display = 'none';
+  } else {
+    document.body.classList.add('gate-locked');
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (input.value === GATE_PASSWORD) {
+      sessionStorage.setItem('perenity-gate-ok', '1');
+      gate.style.display = 'none';
+      document.body.classList.remove('gate-locked');
+    } else {
+      error.classList.add('show');
+      input.value = '';
+      input.focus();
+    }
+  });
+})();
+</script>
 
 <!-- NAV -->
 <nav id="navbar">
